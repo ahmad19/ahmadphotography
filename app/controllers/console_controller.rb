@@ -1,5 +1,7 @@
 class ConsoleController < ApplicationController
   
+  before_filter :authenticate_user!
+  
   def c_view
   @title = "Console"
   @img = Image.new
