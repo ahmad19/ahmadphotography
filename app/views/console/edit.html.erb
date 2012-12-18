@@ -1,0 +1,37 @@
+<%= render :partial => "layouts/partial" %>
+
+<div class= "con">
+	<div class= "container">
+		<div class= "row">
+			<div class= "hero-unit">
+			  <h1>Console</h1>
+			  <p>This is the control panel of your portfolio. Here you can add, delete, modify your photos and its details</p>			  
+			</div>
+			<div class= "span12">
+				<legend> Update Values </legend>
+					<%= form_for(@image, :url => {:controller => "console", :action => 'update', :id => @image.id}) do |f| %>
+							<table>
+							  	<tr>
+							    	<th><%= f.label :gallery, "Gallery"%></th>
+					  				<td><%= f.select :gallery, ["Art", "Photoshoots", "Landscapes", "Others", "Portraits"]%></td>
+							  	</tr>
+								<tr>
+									<th><%= f.label :user_id, "User Id"%></th>
+									<td><%= f.text_field :user_id%></td>
+								</tr>	
+								<tr>
+									<th> <%= f.label :photo_file_name, "Title" %></th>
+									<td><%= f.text_field :photo_file_name %></td>
+								</tr>
+								<tr>
+									<th><%= f.label :description, "Description" %></th>
+									<td><%= f.text_area :description, :rows => 2%></td>
+								</tr>
+							</table>
+							 <%= f.submit "Update", class: "btn btn-success"%>
+							<%end%>
+						
+			</div>	
+		</div>	
+	</div>	
+</div>

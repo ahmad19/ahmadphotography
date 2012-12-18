@@ -1,0 +1,166 @@
+<%= render :partial => "layouts/navbar" %>
+<div class= "con">
+	<div class = "container">
+		<div class= "row">	
+
+			<div class="hero-unit">
+				<% if user_signed_in?%>
+				Signed in as <%= current_user.email%>. Not you?
+
+				<%= link_to "Sign out", destroy_user_session_path, :method => :get%>
+				<%else%>
+				<%= link_to "Sign in", new_user_session_path, :class => 'btn btn-inverse'%> or <%= link_to "Sign up", new_user_registration_path, :class => 'btn btn-inverse'%> 
+				<%end%>
+			  <h1>Console</h1>
+			  <p>This is the control panel of your portfolio. Here you can add, delete, modify your photos and its details</p>			  
+			</div>			
+				<div class= "span12">
+					<div class="tabbable tabs-left">
+			  			<ul class="nav nav-tabs">
+			 				<li class="active"><a href="#tab1" data-toggle="tab"><i class= "icon-trash"></i>See All Galleries</a></li>
+							<li><a href="#tab2" data-toggle="tab"><i class="icon-plus-sign"></i>Add New Photos</a></li>
+			  			</ul>
+			  			<div class="tab-content">
+							<!--Add Photos-->
+			    			<div class="tab-pane" id="tab2">
+								<legend>Add Photos</legend>
+								<%= form_for :img, :url => {:action => "create"} do |f| %>
+									<%= f.hidden_field :user_id, :value => current_user.id %>
+						
+									<%= f.label :gallery, "Gallery"%>
+								  	<%= f.select :gallery, ["Art", "Photoshoots", "Landscapes", "Others", "Portraits"] %> 
+									
+								      <%= f.label :photo_file_name, "Title" %>
+								      <%= f.text_field :photo_file_name, :required => true %>
+
+								      <%= f.label :description, "Description" %>
+								      <%= f.text_area :description, :rows => 2 %>
+								
+									  <%= f.label "Upload an image"%>
+									  <%= f.hidden_field(:image_cache)%>
+									  <%= f.file_field :image %>		
+									
+									  <%= f.submit "Submit", class: "btn btn-success"%>
+									<% end %>
+								
+							</div>
+				    		
+					 		<!--See All Galleries-->
+							<div class="tab-pane active" id="tab1">
+					      		<legend>See All Galleries.</legend>
+								<div class= "tabbable">
+					  				<ul class="nav nav-tabs">
+					 				<li class="active"><a href="#utab1" data-toggle="tab">Art</a></li>
+									<li><a href="#utab2" data-toggle="tab">Landscapes</a></li>
+									<li><a href="#utab3" data-toggle="tab">Photoshoots</a></li>
+									<li><a href="#utab4" data-toggle="tab">Portraits</a></li>
+									<li><a href="#utab5" data-toggle="tab">Other</a></li>
+					  			</ul>
+									<div class= "tab-content">
+										<!-- Art Gallery-->
+										<div class="tab-pane active" id="utab1">
+											<% @imgs.each do |image|%>
+												<% if image.gallery == "Art" %>
+												<ul class ="thumbnails">
+															<li class= "span4">
+																<div class= "thumbnail">
+																	<%= image_tag (image.image.url(:thumb)) %>
+																</div>
+																	<h3><%= image.photo_file_name%></h3>
+																	<p><%= image.description%></p>
+																	<%= link_to 'Edit', {:controller => :console, :action => 'edit', :id => image.id}, :class => 'btn btn-primary' %>
+																	<%= link_to 'Delete', {:controller => :console, :action => 'delete', :id => image.id}, :class => 'btn btn-primary' %>
+															</li>
+														</ul>	
+												<%end%>
+											<%end%>
+										</div><!--Tab1 of See All photos-->
+									
+										<!-- Landscapes Gallery-->
+										<div class="tab-pane" id="utab2">
+											<% @imgs.each do |image|%>	
+												<% if image.gallery == "Landscapes"%>
+												<ul class ="thumbnails">
+													<li class= "span4">
+														<div class= "thumbnail">
+															<%= image_tag (image.image.url(:thumb)) %>
+														</div>
+														<h3><%= image.photo_file_name%></h3>
+														<p><%= image.description%></p>
+														<%= link_to 'Edit', {:controller => :console, :action => 'edit', :id => image.id}, :class => 'btn btn-primary' %>
+															<%= link_to 'Delete', {:controller => :console, :action => 'delete', :id => image.id}, :class => 'btn btn-primary' %>
+													</li>
+												</ul>	
+												<%end%>	
+											<%end%>	
+										</div><!--Tab2 of See All photos-->
+									
+										<!--Photoshoots Gallery-->
+										<div class="tab-pane" id="utab3">
+												<% @imgs.each do |image|%>	
+													<% if image.gallery == "Photoshoots"%>
+													<ul class ="thumbnails">
+														<li class= "span4">
+															<div class= "thumbnail">
+																<%= image_tag (image.image.url(:thumb)) %>
+															</div>
+																<h3><%= image.photo_file_name%></h3>
+																<p><%= image.description%></p>
+																<%= link_to 'Edit', {:controller => :console, :action => 'edit', :id => image.id}, :class => 'btn btn-primary' %>
+																	<%= link_to 'Delete', {:controller => :console, :action => 'delete', :id => image.id}, :class => 'btn btn-primary' %>
+														</li>
+													</ul>	
+													<%end%>		
+												<%end%>	 	
+										</div><!--Tab3 of See All photos-->
+									
+										<!--Portraits Gallery-->
+										<div class="tab-pane" id="utab4">
+											
+											<% @imgs.each do |image|%>
+												<% if image.gallery == "Portraits"%>
+												<ul class ="thumbnails">
+													<li class= "span4">
+														<div class= "thumbnail">
+															<%= image_tag (image.image.url(:thumb)) %>
+														</div>
+														<h3><%= image.photo_file_name%></h3>
+														<p><%= image.description%></p>
+														<%= link_to 'Edit', {:controller => :console, :action => 'edit', :id => image.id}, :class => 'btn btn-primary' %>
+															<%= link_to 'Delete', {:controller => :console, :action => 'delete', :id => image.id}, :class => 'btn btn-primary' %>
+													</li>
+												</ul>	
+												<%end%>		
+											<%end%>	 	
+										</div><!--Tab4 of See All photos-->
+									
+										<!-- Other Gallery-->
+										<div class="tab-pane" id="utab5">
+											
+											<% @imgs.each do |image|%>	
+												<% if image.gallery == "Others"%>
+												<ul class ="thumbnails">
+													<li class= "span4">
+														<div class= "thumbnail">
+															<%= image_tag (image.image.url(:thumb)) %>
+														</div>
+															<h3><%= image.photo_file_name%></h3>
+															<p><%= image.description%></p>
+															<%= link_to 'Edit', {:controller => :console, :action => 'edit', :id => image.id}, :class => 'btn btn-primary' %>
+																<%= link_to 'Delete', {:controller => :console, :action => 'delete', :id => image.id}, :class => 'btn btn-primary' %>
+													</li>
+												</ul>	
+												<%end%>	
+											<%end%>		 	
+										</div><!--Tab5 of See All photos-->
+										
+									</div><!-- End of Tab Content-->
+								</div><!-- End of Tabbable-->
+					 		</div><!-- End of tab 3-->
+						</div> <!--End of tab content-->	
+			  		</div> <!-- End of Tabbable Tabs Left-->
+				</div> <!--Span12-->
+		</div><!--End of row-->
+			
+	</div><!-- End of Container-->	
+</div>	<!-- End of Class Con-->

@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: ahmadhamza-photography
+  api_key: '846467675599977'
+  api_secret: dHekniuwHzhXgZxUfPm8vQP2ZMg
+  enhance_image_tag: false
+  static_image_support: false
+production:
+  cloud_name: ahmadhamza-photography
+  api_key: '846467675599977'
+  api_secret: dHekniuwHzhXgZxUfPm8vQP2ZMg
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: ahmadhamza-photography
+  api_key: '846467675599977'
+  api_secret: dHekniuwHzhXgZxUfPm8vQP2ZMg
+  enhance_image_tag: true
+  static_image_support: false
