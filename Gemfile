@@ -48,4 +48,5 @@ gem 'jquery-rails'
 group :production do
   gem 'activerecord-postgresql-adapter'
   gem 'pg', '0.12.2'
+  gem 'rack-google_analytics', :require => "rack/google_analytics"
 end
